@@ -79,7 +79,7 @@ export default function Edit() {
 
   // This following section will display the form that takes input from the user to update the data.
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center h-screen">
       <form onSubmit={onSubmit}>
         <div className="form-control">
           <h3>Update Record</h3>

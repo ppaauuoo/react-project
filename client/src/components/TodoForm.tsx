@@ -45,7 +45,7 @@ export default function TodoForm() {
   }
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center h-screen items">
     <form onSubmit={onSubmit}>
       <div className="form-control">
         <h3>Add New Todo</h3>
@@ -64,7 +64,7 @@ export default function TodoForm() {
           <span className="label-text">Content</span>
         </label>
         <textarea
-          className="input input-bordered"
+          className="input input-bordered mb-4"
           id="content"
           value={form.content}
           onChange={(e) => updateForm({ content: e.target.value })}

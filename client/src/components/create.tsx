@@ -46,7 +46,7 @@ export default function Create() {
   }
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center h-screen">
     <form onSubmit={onSubmit}>
       <div className="form-control">
         <h3>Create New Record</h3>

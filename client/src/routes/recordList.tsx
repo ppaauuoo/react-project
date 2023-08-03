@@ -68,20 +68,28 @@ export default function RecordList() {
 
   // This following section will display the table with the records of individuals.
   return (
-    <div className="px-4 py-6">
+    <div className="px-4 py-6 h-screen">
       <h3 className="text-3xl font-bold pb-4">Record List</h3>
       <Link className="btn btn-primary btn-sm" to={`/add/record`}>Add Record</Link>
-      <table className="table-auto text-center w-full border-collapse mt-4">
-        <thead>
-          <tr>
-            <th className="border px-4 py-2">Name</th>
-            <th className="border px-4 py-2">Position</th>
-            <th className="border px-4 py-2">Level</th>
-            <th className="border px-4 py-2">Action</th>
-          </tr>
-        </thead>
-        <tbody>{recordList()}</tbody>
-      </table>
+      {records.length === 0 ? (
+        <div className="flex p-4">
+          <h1>You have no one?</h1>
+        </div>
+        ) : (
+          // You can put additional JSX elements here for the false condition.
+          <table className="table-auto text-center w-full border-collapse mt-4">
+          <thead>
+            <tr>
+              <th className="border px-4 py-2">Name</th>
+              <th className="border px-4 py-2">Position</th>
+              <th className="border px-4 py-2">Level</th>
+              <th className="border px-4 py-2">Action</th>
+            </tr>
+          </thead>
+          <tbody>{recordList()}</tbody>
+        </table>
+        )}
+
     </div>
   );
 }
