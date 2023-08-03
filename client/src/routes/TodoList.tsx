@@ -31,7 +31,7 @@ const TodoList = () => {
   useEffect(() => {
     async function getTodos() {
       //for performance (if being outside useEffect block it will be created evertime this component is rendered)
-      const response = await fetch(`http://localhost:5050/todo`);
+      const response = await fetch(`https://reactapp-e2fk.onrender.com/todo`);
 
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
@@ -63,7 +63,7 @@ const TodoList = () => {
 
   // This method will delete a record
   async function deleteTodo(id: string) {
-    await fetch(`http://localhost:5050/todo/${id}`, {
+    await fetch(`https://reactapp-e2fk.onrender.com/todo/${id}`, {
       method: "DELETE",
     });
 
