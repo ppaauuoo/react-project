@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom";
+
 interface ChatProp {
   items: string[];
 }
 
-function Chat(props: ChatProp) {
+function ChatNav(props: ChatProp) {
   return (
     <div className="dropdown dropdown-end">
       <button className="btn btn-ghost btn-circle">
@@ -14,7 +16,7 @@ function Chat(props: ChatProp) {
       <ul className="dropdown-content z-[1] menu p-2 shadow bg-white rounded-box w-52 text-neutral">
         {props.items.map((item) => (
           <li key={item}>
-            <a href={`/chat/${item}`}>{item}</a>
+            <Link to={`/chat/${item}`}>{item}</Link>
           </li>
         ))}
       </ul>
@@ -22,4 +24,4 @@ function Chat(props: ChatProp) {
   );
 }
 
-export default Chat;
+export default ChatNav;

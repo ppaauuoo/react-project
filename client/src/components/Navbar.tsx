@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Chat from "./Chat";
+import ChatNav from "./ChatNav";
 
 const items = ['dashboard', 'back'];
 
@@ -39,13 +39,19 @@ function Navbar() {
         >
           Todo
         </Link>
+        <Link
+          to="/record"
+          className="btn btn-ghost normal-case text-lg hidden sm:flex"
+        >
+          Record
+        </Link>
       </div>
       <div className="navbar-end">
         <Link to="/favorite" className="btn btn-ghost btn-circle">
           <i className="fa-regular fa-heart fa-lg" />
         </Link>
 
-        <Chat items={items}/>
+        <ChatNav items={items}/>
         <Link to="/" className="btn btn-primary normal-case text-lg mx-4">
           ลงขาย
         </Link>
