@@ -28,7 +28,8 @@ const router = createBrowserRouter([
         element: <RecordList />,
       },
       { path: "/edit/:id", element: <Edit /> },
-      { path: "/create", element: <Create /> },
+      { path: "/add/record", element: <Create /> },
+      { path: "/add/todo", element: <Create /> },
     ],
   },
 ]);

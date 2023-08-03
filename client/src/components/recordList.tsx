@@ -70,7 +70,7 @@ export default function RecordList() {
   return (
     <div className="px-4 py-6">
       <h3 className="text-3xl font-bold pb-4">Record List</h3>
-      <Link className="btn btn-primary btn-sm" to={`/create`}>Add Record</Link>
+      <Link className="btn btn-primary btn-sm" to={`/add/record`}>Add Record</Link>
       <table className="table-auto text-center w-full border-collapse mt-4">
         <thead>
           <tr>

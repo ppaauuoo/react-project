@@ -8,7 +8,7 @@ const router = express.Router();
 
 const todoSchema = new mongoose.Schema({
     name: String,
-    done: Boolean
+    content: String
   })
 
 const Todo = mongoose.model('Todo',todoSchema)
