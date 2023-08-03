@@ -29,7 +29,7 @@ export default function TodoForm() {
 
     const newTodo = { ...form }; //turn form to JSON (form is the state value)
 
-    await fetch("http://localhost:5050/todo/", {
+    await fetch("http://localhost:5050/todo", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

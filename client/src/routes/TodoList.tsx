@@ -9,7 +9,7 @@ const TodoList = () => {
   useEffect(() => {
     async function getTodos() {
       //for performance (if being outside useEffect block it will be created evertime this component is rendered)
-      const response = await fetch(`http://localhost:5050/todo/`);
+      const response = await fetch(`http://localhost:5050/todo`);
 
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
@@ -35,7 +35,7 @@ const TodoList = () => {
 
   return (
     <div className="flex justify-start p-4">
-      <Link className="btn btn-primary btn-sm" to={`/create`}>
+      <Link className="btn btn-primary btn-sm" to={`/add/todo`}>
         Add Todo
       </Link>
 

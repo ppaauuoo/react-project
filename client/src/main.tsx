@@ -13,6 +13,7 @@ import RecordList from "./components/recordList";
 import Edit from "./components/edit";
 import Create from "./components/create";
 import TodoList from "./routes/TodoList";
+import TodoForm from "./components/TodoForm";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
       },
       { path: "/edit/:id", element: <Edit /> },
       { path: "/add/record", element: <Create /> },
-      { path: "/add/todo", element: <Create /> },
+      { path: "/add/todo", element: <TodoForm /> },
     ],
   },
 ]);

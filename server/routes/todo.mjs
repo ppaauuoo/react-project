@@ -1,10 +1,12 @@
 import express from "express";
-import db from "../db/conn.mjs";
+import conn from "../db/mongoose.mjs";
 import { ObjectId } from "mongodb";
 
 import { mongoose } from "mongoose";
 
 const router = express.Router();
+conn();
+
 
 const todoSchema = new mongoose.Schema({
     name: String,
@@ -19,53 +21,49 @@ router.get("/", async (req, res) => {
   res.send(collection).status(200);
 });
 
-// This section will help you get a single record by id
-router.get("/:id", async (req, res) => {
-  let collection = await db.collection("records");
-  let query = {_id: new ObjectId(req.params.id)};
-  let result = await collection.findOne(query);
+// // This section will help you get a single record by id
+// router.get("/:id", async (req, res) => {
+//   let collection = await db.collection("records");
+//   let query = {_id: new ObjectId(req.params.id)};
+//   let result = await collection.findOne(query);
 
-  if (!result) res.send("Not found").status(404);
-  else res.send(result).status(200);
-});
+//   if (!result) res.send("Not found").status(404);
+//   else res.send(result).status(200);
+// });
 
 // This section will help you create a new record.
 router.post("/", async (req, res) => {
-  let newDocument = {
-    name: req.body.name,
-    position: req.body.position,
-    level: req.body.level,
-  };
-  let collection = await db.collection("records");
-  let result = await collection.insertOne(newDocument);
-  res.send(result).status(204);
+  const newTodo = await new Todo({title: req.body.title, content: req.body.content})
+  await newTodo.save();
+
+  res.send(newTodo).status(204);
 });
 
-// This section will help you update a record by id.
-router.patch("/:id", async (req, res) => {
-  const query = { _id: new ObjectId(req.params.id) };
-  const updates =  {
-    $set: {
-      name: req.body.name,
-      position: req.body.position,
-      level: req.body.level
-    }
-  };
+// // This section will help you update a record by id.
+// router.patch("/:id", async (req, res) => {
+//   const query = { _id: new ObjectId(req.params.id) };
+//   const updates =  {
+//     $set: {
+//       name: req.body.name,
+//       position: req.body.position,
+//       level: req.body.level
+//     }
+//   };
 
-  let collection = await db.collection("records");
-  let result = await collection.updateOne(query, updates);
+//   let collection = await db.collection("records");
+//   let result = await collection.updateOne(query, updates);
 
-  res.send(result).status(200);
-});
+//   res.send(result).status(200);
+// });
 
-// This section will help you delete a record
-router.delete("/:id", async (req, res) => {
-  const query = { _id: new ObjectId(req.params.id) };
+// // This section will help you delete a record
+// router.delete("/:id", async (req, res) => {
+//   const query = { _id: new ObjectId(req.params.id) };
 
-  const collection = db.collection("records");
-  let result = await collection.deleteOne(query);
+//   const collection = db.collection("records");
+//   let result = await collection.deleteOne(query);
 
-  res.send(result).status(200);
-});
+//   res.send(result).status(200);
+// });
 
 export default router;
