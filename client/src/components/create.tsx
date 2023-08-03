@@ -30,7 +30,7 @@ export default function Create() {
 
     const newPerson = { ...form };
 
-    await fetch("http://localhost:5050/record", {
+    await fetch("https://reactapp-e2fk.onrender.com/record", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -28,7 +28,7 @@ export default function Edit() {
 
       const id = params.id.toString();
       const response = await fetch(
-        `http://localhost:5050/record/${params.id.toString()}`
+        `https://reactapp-e2fk.onrender.com/record/${params.id.toString()}`
       );
 
       if (!response.ok) {
@@ -66,7 +66,7 @@ export default function Edit() {
     };
 
     // This will send a post request to update the data in the database.
-    await fetch(`http://localhost:5050/record/${params.id}`, {
+    await fetch(`https://reactapp-e2fk.onrender.com/record/${params.id}`, {
       method: "PATCH",
       body: JSON.stringify(editedPerson),
       headers: {
