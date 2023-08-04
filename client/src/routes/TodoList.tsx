@@ -1,3 +1,4 @@
+import { Skeleton } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -26,10 +27,12 @@ const Todo = (props: any) => {
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   // This method fetches the records from the database.
   useEffect(() => {
     async function getTodos() {
+      setIsLoading(true)
       //for performance (if being outside useEffect block it will be created evertime this component is rendered)
       const response = await fetch(`https://reactapp-e2fk.onrender.com/todo`);
 
@@ -41,6 +44,7 @@ const TodoList = () => {
 
       const todos = await response.json();
       setTodos(todos);
+      setIsLoading(false)
     }
 
     getTodos();
@@ -78,10 +82,13 @@ const TodoList = () => {
         Add Todo
       </Link>
       <div className="flex p-4">
-        {todos.length === 0 ? (
+        {isLoading ? (
+          <Skeleton width='100%' variant="rectangular"><div/></Skeleton>
+
+        ) : todos.length === 0?(
+          // You can put additional JSX elements here for the false condition.
           <h1>You have nothing to do?</h1>
         ) : (
-          // You can put additional JSX elements here for the false condition.
           <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 p-4">{todoList()}</div>
         )}
       </div>
