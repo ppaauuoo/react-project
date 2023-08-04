@@ -3,7 +3,29 @@ import ChatNav from "./ChatNav";
 
 const items = ['dashboard', 'back'];
 
+import { useAuth0 } from "@auth0/auth0-react";
+
+const LoginButton = () => {
+  const { loginWithRedirect } = useAuth0();
+
+  return <button className="btn btn-ghost normal-case text-lg" onClick={() => loginWithRedirect()}>เข้าสู่ระบบ</button>;
+};
+
+
+const LogoutButton = () => {
+  const { logout } = useAuth0();
+
+  return (
+    <button className="btn btn-ghost normal-case text-lg" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+      ออกจากระบบ
+    </button>
+  );
+};
+
+
+
 function Navbar() {
+  const { isAuthenticated } = useAuth0();
 
   return (
     <div className="navbar bg-base-100">
@@ -52,6 +74,7 @@ function Navbar() {
         </Link>
 
         <ChatNav items={items}/>
+        {isAuthenticated ?  <LogoutButton />: <LoginButton />}
         <Link to="/" className="btn btn-primary normal-case text-lg mx-4">
           ลงขาย
         </Link>

@@ -16,6 +16,7 @@ import Create from "./components/create";
 import RecordList from "./routes/recordList";
 import TodoForm from "./components/TodoForm";
 
+import { Auth0Provider } from '@auth0/auth0-react';
 
 
 
@@ -42,6 +43,14 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
+    <Auth0Provider
+    domain="dev-zxrkgo60xcsyf3yv.us.auth0.com"
+    clientId="CgZS6ckhmJisu89n9STUNqakRDtfozXM"
+    authorizationParams={{
+      redirect_uri: window.location.origin
+    }}
+  >
     <RouterProvider router={router} />
+  </Auth0Provider>
   </React.StrictMode>
 );
