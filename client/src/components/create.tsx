@@ -10,6 +10,8 @@ interface FormValues {
 }
 
 export default function Create() {
+  const [isLoading, setIsLoading] = useState(false)
+
   const [form, setForm] = useState<FormValues>({
     name: "",
     position: "",
@@ -27,8 +29,8 @@ export default function Create() {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
     const newPerson = { ...form };
+    setIsLoading(true)
 
     await fetch("https://reactapp-e2fk.onrender.com/record", {
       method: "POST",
@@ -40,12 +42,14 @@ export default function Create() {
       window.alert(error);
       return;
     });
+    setIsLoading(false)
 
     setForm({ name: "", position: "", level: "" });
     navigate("/record");
   }
 
   return (
+  
     <div className="flex justify-center h-screen">
     <form onSubmit={onSubmit}>
       <div className="form-control">
@@ -115,8 +119,9 @@ export default function Create() {
         </div>
         <input
           type="submit"
-          value="Update Record"
+          value={isLoading?"Loading":"Add Record"}
           className="btn btn-primary"
+          disabled={isLoading}
         />
       </div>
     </form>

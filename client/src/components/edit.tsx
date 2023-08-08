@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 export default function Edit() {
+  const [isLoading, setIsLoading] = useState(false)
+
   interface FormState {
     name: string;
     position: string;
@@ -31,6 +33,7 @@ export default function Edit() {
         `https://reactapp-e2fk.onrender.com/record/${params.id.toString()}`
       );
 
+
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
         window.alert(message);
@@ -43,6 +46,7 @@ export default function Edit() {
         navigate("/");
         return;
       }
+
 
       setForm(record);
     }
@@ -64,7 +68,7 @@ export default function Edit() {
       position: form.position,
       level: form.level,
     };
-
+    setIsLoading(true);
     // This will send a post request to update the data in the database.
     await fetch(`https://reactapp-e2fk.onrender.com/record/${params.id}`, {
       method: "PATCH",
@@ -73,6 +77,7 @@ export default function Edit() {
         "Content-Type": "application/json",
       },
     });
+    setIsLoading(false);
 
     navigate("/record");
   }
@@ -148,8 +153,9 @@ export default function Edit() {
           </div>
           <input
             type="submit"
-            value="Update Record"
             className="btn btn-primary"
+            value={isLoading?"Loading":"Update Record"}
+            disabled={isLoading}
           />
         </div>
       </form>

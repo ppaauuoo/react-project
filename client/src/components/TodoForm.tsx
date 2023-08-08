@@ -9,6 +9,8 @@ interface FormValues {
 }
 
 export default function TodoForm() {
+  const [isLoading, setIsLoading] = useState(false)
+
   const [form, setForm] = useState<FormValues>({
     title: "",
     content: "",
@@ -28,7 +30,7 @@ export default function TodoForm() {
     e.preventDefault();
 
     const newTodo = { ...form }; //turn form to JSON (form is the state value)
-
+    setIsLoading(true)
     await fetch("https://reactapp-e2fk.onrender.com/todo", {
       method: "POST",
       headers: {
@@ -39,7 +41,7 @@ export default function TodoForm() {
       window.alert(error);
       return;
     });
-
+    setIsLoading(false)
     setForm({ title: "", content: ""}); //reset component?
     navigate("/todo");
   }
@@ -71,7 +73,7 @@ export default function TodoForm() {
         />
         <input
           type="submit"
-          value="Add"
+          value={isLoading?'Loading':"Add"} 
           className="btn btn-primary"
         />
       </div>
