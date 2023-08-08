@@ -1,43 +1,34 @@
 import { Link } from "react-router-dom";
-import ChatNav from "../MeeKong/ChatNav";
+import ChatNav from "./ChatNav";
 
-const items = ["dashboard", "back"];
+const items = ['dashboard', 'back'];
 
 import { useAuth0 } from "@auth0/auth0-react";
 
 const LoginButton = () => {
   const { loginWithRedirect } = useAuth0();
 
-  return (
-    <button
-      className="btn btn-ghost normal-case text-lg"
-      onClick={() => loginWithRedirect()}
-    >
-      เข้าสู่ระบบ
-    </button>
-  );
+  return <button className="btn btn-ghost normal-case text-lg" onClick={() => loginWithRedirect()}>เข้าสู่ระบบ</button>;
 };
+
 
 const LogoutButton = () => {
   const { logout } = useAuth0();
 
   return (
-    <button
-      className="btn btn-ghost normal-case text-lg"
-      onClick={() =>
-        logout({ logoutParams: { returnTo: window.location.origin } })
-      }
-    >
+    <button className="btn btn-ghost normal-case text-lg" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
       ออกจากระบบ
     </button>
   );
 };
 
+
+
 function Navbar() {
   const { isAuthenticated } = useAuth0();
 
   return (
-    <div className="navbar bg-red-500 text-white">
+    <div className="navbar bg-base-100">
       <div className="flex-none sm:hidden">
         <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
           <svg
@@ -58,8 +49,6 @@ function Navbar() {
 
       <div className="navbar-start">
         <p className="normal-case text-xl mr-4">MeeKong</p>
-      </div>
-      <div className="navbar-center">
         <Link
           to="/"
           className="btn btn-ghost normal-case text-lg hidden sm:flex"
@@ -78,26 +67,16 @@ function Navbar() {
         >
           Record
         </Link>
-        <div className="dropdown dropdown-hover">
-          <label tabIndex={0} className="btn btn-ghost normal-case text-lg">
-            Hover <i className="fa-solid fa-caret-down"/>
-          </label>
-          <ul
-            tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 shadow bg-red-500 rounded-box w-52 text-lg "
-          >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Item 2</a>
-            </li>
-          </ul>
-        </div>
       </div>
       <div className="navbar-end">
         <Link to="/favorite" className="btn btn-ghost btn-circle">
-          <i className="fa-solid fa-lg fa-magnifying-glass"/>
+          <i className="fa-regular fa-heart fa-lg" />
+        </Link>
+
+        <ChatNav items={items}/>
+        {isAuthenticated ?  <LogoutButton />: <LoginButton />}
+        <Link to="/" className="btn btn-primary normal-case text-lg mx-4">
+          ลงขาย
         </Link>
       </div>
     </div>
