@@ -32,7 +32,7 @@ const TodoList = () => {
   // This method fetches the records from the database.
   useEffect(() => {
     async function getTodos() {
-      setIsLoading(true)
+      setIsLoading(true);
       //for performance (if being outside useEffect block it will be created evertime this component is rendered)
       const response = await fetch(`https://reactapp-e2fk.onrender.com/todo`);
 
@@ -44,7 +44,7 @@ const TodoList = () => {
 
       const todos = await response.json();
       setTodos(todos);
-      setIsLoading(false)
+      setIsLoading(false);
     }
 
     getTodos();
@@ -83,13 +83,20 @@ const TodoList = () => {
       </Link>
       <div className="flex p-4">
         {isLoading ? (
-          <Skeleton width='100%' variant="rectangular"><div/></Skeleton>
-
-        ) : todos.length === 0?(
+          <>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 p-4">
+              <Skeleton animation="wave" variant="rounded" width={256} height={118} />
+              <Skeleton animation="wave" variant="rounded" width={256} height={118} />
+              <Skeleton animation="wave" variant="rounded" width={256} height={118} />
+            </div>
+          </>
+        ) : todos.length === 0 ? (
           // You can put additional JSX elements here for the false condition.
           <h1>You have nothing to do?</h1>
         ) : (
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 p-4">{todoList()}</div>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 p-4">
+            {todoList()}
+          </div>
         )}
       </div>
     </div>

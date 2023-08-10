@@ -22,7 +22,7 @@ export default function TodoForm() {
   /// update form state value with new one
   function updateForm(value: Partial<FormValues>) {
     setForm((prev) => {
-      return { ...prev, ...value };
+      return { ...prev, ...value }; //set prev with value /// value = user typed value
     });
   }
 
