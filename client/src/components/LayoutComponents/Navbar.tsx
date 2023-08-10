@@ -97,7 +97,7 @@ function Navbar() {
       </div>
       <div className="navbar-end">
         <Link to="/favorite" className="btn btn-ghost btn-circle">
-          <i className="fa-solid fa-lg fa-magnifying-glass"/>
+          <i className="fa-regular fa-lg fa-heart"/>
         </Link>
       </div>
     </div>
