@@ -35,13 +35,7 @@ const TodoList = () => {
     async function getTodos() {
       setIsLoading(true);
       //for performance (if being outside useEffect block it will be created evertime this component is rendered)
-      const response = await fetch(`https://reactapp-e2fk.onrender.com/todo`, {
-        method: 'GET', // You might need to specify the HTTP method as well
-        headers: {
-          'Content-Type': 'application/json', // Specify the content type as JSON
-        },
-        body: JSON.stringify({ user_email: user?.email }), // Convert the object to JSON string
-      });
+      const response = await fetch(`https://reactapp-e2fk.onrender.com/todo`);
       
       console.log(user?.email)
       if (!response.ok) {
