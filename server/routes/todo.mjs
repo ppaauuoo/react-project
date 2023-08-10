@@ -8,6 +8,7 @@ const router = express.Router();
 conn();
 
 
+
 const todoSchema = new mongoose.Schema({
     title: String,
     content: String
@@ -17,6 +18,8 @@ const Todo = mongoose.model('Todo',todoSchema)
 
 // This section will help you get a list of all the records.
 router.get("/", async (req, res) => {
+  console.log(body?.user_email)
+
   let collection = await Todo.find()
   res.send(collection).status(200);
 });

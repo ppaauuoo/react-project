@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import ChatNav from "../MeeKong/ChatNav";
 
 const items = ["dashboard", "back"];
 
@@ -80,7 +79,7 @@ function Navbar() {
         </Link>
         <div className="dropdown dropdown-hover">
           <label tabIndex={0} className="btn btn-ghost normal-case text-lg">
-            Hover <i className="fa-solid fa-caret-down"/>
+            Hover <i className="fa-solid fa-caret-down" />
           </label>
           <ul
             tabIndex={0}
@@ -97,8 +96,9 @@ function Navbar() {
       </div>
       <div className="navbar-end">
         <Link to="/favorite" className="btn btn-ghost btn-circle">
-          <i className="fa-regular fa-lg fa-heart"/>
+          <i className="fa-regular fa-lg fa-heart" />
         </Link>
+        {isAuthenticated ? <LogoutButton /> : <LoginButton />}
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { Skeleton } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -28,14 +29,21 @@ const Todo = (props: any) => {
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const { user } = useAuth0();
   // This method fetches the records from the database.
   useEffect(() => {
     async function getTodos() {
       setIsLoading(true);
       //for performance (if being outside useEffect block it will be created evertime this component is rendered)
-      const response = await fetch(`https://reactapp-e2fk.onrender.com/todo`);
-
+      const response = await fetch(`https://reactapp-e2fk.onrender.com/todo`, {
+        method: 'GET', // You might need to specify the HTTP method as well
+        headers: {
+          'Content-Type': 'application/json', // Specify the content type as JSON
+        },
+        body: JSON.stringify({ user_email: user?.email }), // Convert the object to JSON string
+      });
+      
+      console.log(user?.email)
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         window.alert(message);
