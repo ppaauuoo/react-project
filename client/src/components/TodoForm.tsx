@@ -1,6 +1,6 @@
+import { Backdrop, CircularProgress } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-
 
 // type for TSX
 interface FormValues {
@@ -9,8 +9,15 @@ interface FormValues {
 }
 
 export default function TodoForm() {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
   const [form, setForm] = useState<FormValues>({
     title: "",
     content: "",
@@ -30,7 +37,7 @@ export default function TodoForm() {
     e.preventDefault();
 
     const newTodo = { ...form }; //turn form to JSON (form is the state value)
-    setIsLoading(true)
+    setIsLoading(true);
     await fetch("https://reactapp-e2fk.onrender.com/todo", {
       method: "POST",
       headers: {
@@ -41,43 +48,51 @@ export default function TodoForm() {
       window.alert(error);
       return;
     });
-    setIsLoading(false)
-    setForm({ title: "", content: ""}); //reset component?
+    setIsLoading(false);
+    setForm({ title: "", content: "" }); //reset component?
     navigate("/todo");
   }
 
   return (
     <div className="flex justify-center h-screen items">
-    <form onSubmit={onSubmit}>
-      <div className="form-control">
-        <h3>Add New Todo</h3>
+      <form onSubmit={onSubmit}>
+        <div className="form-control">
+          <h3>Add New Todo</h3>
 
-        <label className="label">
-          <span className="label-text">Title</span>
-        </label>
-        <input
-          type="text"
-          className="input input-bordered"
-          id="title"
-          value={form.title} //the value is up to the state so no matter what you do it won't changes unless
-          onChange={(e) => updateForm({ title: e.target.value })} // we change the form state with onChange so the value would change 
-        />
-        <label className="label">
-          <span className="label-text">Content</span>
-        </label>
-        <textarea
-          className="input input-bordered mb-4"
-          id="content"
-          value={form.content}
-          onChange={(e) => updateForm({ content: e.target.value })}
-        />
-        <input
-          type="submit"
-          value={isLoading?'Loading':"Add"} 
-          className="btn btn-primary"
-        />
-      </div>
-    </form>
-  </div>
+          <label className="label">
+            <span className="label-text">Title</span>
+          </label>
+          <input
+            type="text"
+            className="input input-bordered"
+            id="title"
+            value={form.title} //the value is up to the state so no matter what you do it won't changes unless
+            onChange={(e) => updateForm({ title: e.target.value })} // we change the form state with onChange so the value would change
+          />
+          <label className="label">
+            <span className="label-text">Content</span>
+          </label>
+          <textarea
+            className="input input-bordered mb-4"
+            id="content"
+            value={form.content}
+            onChange={(e) => updateForm({ content: e.target.value })}
+          />
+          <input
+            type="submit"
+            value={isLoading ? "Loading" : "Add"}
+            className="btn btn-primary"
+            onClick={handleOpen}
+          />
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={open}
+            onClick={handleClose}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        </div>
+      </form>
+    </div>
   );
 }

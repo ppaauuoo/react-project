@@ -1,9 +1,16 @@
+import { Backdrop, CircularProgress } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 export default function Edit() {
-  const [isLoading, setIsLoading] = useState(false)
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
   interface FormState {
     name: string;
     position: string;
@@ -33,7 +40,6 @@ export default function Edit() {
         `https://reactapp-e2fk.onrender.com/record/${params.id.toString()}`
       );
 
-
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
         window.alert(message);
@@ -46,7 +52,6 @@ export default function Edit() {
         navigate("/");
         return;
       }
-
 
       setForm(record);
     }
@@ -113,50 +118,59 @@ export default function Edit() {
             <label className="label cursor-pointer">
               <span className="label-text">Intern</span>
               <input
-              className="radio"
-              type="radio"
-              name="positionOptions"
-              id="positionIntern"
-              value="Intern"
-              checked={form.level === "Intern"}
-              onChange={(e) => updateForm({ level: e.target.value })}
-            />
+                className="radio"
+                type="radio"
+                name="positionOptions"
+                id="positionIntern"
+                value="Intern"
+                checked={form.level === "Intern"}
+                onChange={(e) => updateForm({ level: e.target.value })}
+              />
             </label>
           </div>
           <div className="form-control">
             <label className="label cursor-pointer">
               <span className="label-text">Junior</span>
               <input
-              className="radio"
-              type="radio"
-              name="positionOptions"
-              id="positionJunior"
-              value="Junior"
-              checked={form.level === "Junior"}
-              onChange={(e) => updateForm({ level: e.target.value })}
-            />
+                className="radio"
+                type="radio"
+                name="positionOptions"
+                id="positionJunior"
+                value="Junior"
+                checked={form.level === "Junior"}
+                onChange={(e) => updateForm({ level: e.target.value })}
+              />
             </label>
           </div>
           <div className="form-control">
             <label className="label cursor-pointer">
               <span className="label-text">Senior</span>
               <input
-              className="radio"
-              type="radio"
-              name="positionOptions"
-              id="positionSenior"
-              value="Senior"
-              checked={form.level === "Senior"}
-              onChange={(e) => updateForm({ level: e.target.value })}
-            />
+                className="radio"
+                type="radio"
+                name="positionOptions"
+                id="positionSenior"
+                value="Senior"
+                checked={form.level === "Senior"}
+                onChange={(e) => updateForm({ level: e.target.value })}
+              />
             </label>
           </div>
           <input
             type="submit"
             className="btn btn-primary"
-            value={isLoading?"Loading":"Update Record"}
+            value={isLoading ? "Loading" : "Update Record"}
             disabled={isLoading}
+            onClick={handleOpen}
+
           />
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={open}
+            onClick={handleClose}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
         </div>
       </form>
     </div>

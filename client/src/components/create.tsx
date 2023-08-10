@@ -1,6 +1,6 @@
+import { Backdrop, CircularProgress } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-
 
 // type for TSX
 interface FormValues {
@@ -10,8 +10,14 @@ interface FormValues {
 }
 
 export default function Create() {
-  const [isLoading, setIsLoading] = useState(false)
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
   const [form, setForm] = useState<FormValues>({
     name: "",
     position: "",
@@ -30,7 +36,7 @@ export default function Create() {
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const newPerson = { ...form };
-    setIsLoading(true)
+    setIsLoading(true);
 
     await fetch("https://reactapp-e2fk.onrender.com/record", {
       method: "POST",
@@ -42,89 +48,97 @@ export default function Create() {
       window.alert(error);
       return;
     });
-    setIsLoading(false)
+    setIsLoading(false);
 
     setForm({ name: "", position: "", level: "" });
     navigate("/record");
   }
 
   return (
-  
     <div className="flex justify-center h-screen">
-    <form onSubmit={onSubmit}>
-      <div className="form-control">
-        <h3>Create New Record</h3>
+      <form onSubmit={onSubmit}>
+        <div className="form-control">
+          <h3>Create New Record</h3>
 
-        <label className="label">
-          <span className="label-text">Name</span>
-        </label>
-        <input
-          type="text"
-          className="input input-bordered"
-          id="name"
-          value={form.name}
-          onChange={(e) => updateForm({ name: e.target.value })}
-        />
-        <label className="label">
-          <span className="label-text">Position</span>
-        </label>
-        <input
-          type="text"
-          className="input input-bordered"
-          id="position"
-          value={form.position}
-          onChange={(e) => updateForm({ position: e.target.value })}
-        />
-        <div className="form-control">
-          <label className="label cursor-pointer">
-            <span className="label-text">Intern</span>
-            <input
-            className="radio"
-            type="radio"
-            name="positionOptions"
-            id="positionIntern"
-            value="Intern"
-            checked={form.level === "Intern"}
-            onChange={(e) => updateForm({ level: e.target.value })}
-          />
+          <label className="label">
+            <span className="label-text">Name</span>
           </label>
-        </div>
-        <div className="form-control">
-          <label className="label cursor-pointer">
-            <span className="label-text">Junior</span>
-            <input
-            className="radio"
-            type="radio"
-            name="positionOptions"
-            id="positionJunior"
-            value="Junior"
-            checked={form.level === "Junior"}
-            onChange={(e) => updateForm({ level: e.target.value })}
+          <input
+            type="text"
+            className="input input-bordered"
+            id="name"
+            value={form.name}
+            onChange={(e) => updateForm({ name: e.target.value })}
           />
+          <label className="label">
+            <span className="label-text">Position</span>
           </label>
-        </div>
-        <div className="form-control">
-          <label className="label cursor-pointer">
-            <span className="label-text">Senior</span>
-            <input
-            className="radio"
-            type="radio"
-            name="positionOptions"
-            id="positionSenior"
-            value="Senior"
-            checked={form.level === "Senior"}
-            onChange={(e) => updateForm({ level: e.target.value })}
+          <input
+            type="text"
+            className="input input-bordered"
+            id="position"
+            value={form.position}
+            onChange={(e) => updateForm({ position: e.target.value })}
           />
-          </label>
+          <div className="form-control">
+            <label className="label cursor-pointer">
+              <span className="label-text">Intern</span>
+              <input
+                className="radio"
+                type="radio"
+                name="positionOptions"
+                id="positionIntern"
+                value="Intern"
+                checked={form.level === "Intern"}
+                onChange={(e) => updateForm({ level: e.target.value })}
+              />
+            </label>
+          </div>
+          <div className="form-control">
+            <label className="label cursor-pointer">
+              <span className="label-text">Junior</span>
+              <input
+                className="radio"
+                type="radio"
+                name="positionOptions"
+                id="positionJunior"
+                value="Junior"
+                checked={form.level === "Junior"}
+                onChange={(e) => updateForm({ level: e.target.value })}
+              />
+            </label>
+          </div>
+          <div className="form-control">
+            <label className="label cursor-pointer">
+              <span className="label-text">Senior</span>
+              <input
+                className="radio"
+                type="radio"
+                name="positionOptions"
+                id="positionSenior"
+                value="Senior"
+                checked={form.level === "Senior"}
+                onChange={(e) => updateForm({ level: e.target.value })}
+              />
+            </label>
+          </div>
+          <input
+            type="submit"
+            value={isLoading ? "Loading" : "Add Record"}
+            className="btn btn-primary"
+            disabled={isLoading}
+            onClick={handleOpen}
+
+          />
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={open}
+            onClick={handleClose}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
         </div>
-        <input
-          type="submit"
-          value={isLoading?"Loading":"Add Record"}
-          className="btn btn-primary"
-          disabled={isLoading}
-        />
-      </div>
-    </form>
-  </div>
+      </form>
+    </div>
   );
 }
