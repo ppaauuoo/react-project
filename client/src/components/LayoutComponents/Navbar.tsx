@@ -77,7 +77,7 @@ function Navbar() {
         >
           Record
         </Link>
-        <div className="dropdown dropdown-hover">
+        <div className="dropdown dropdown-hover hidden sm:flex">
           <label tabIndex={0} className="btn btn-ghost normal-case text-lg">
             Hover <i className="fa-solid fa-caret-down" />
           </label>

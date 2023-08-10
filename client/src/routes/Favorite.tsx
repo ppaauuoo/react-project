@@ -3,7 +3,7 @@ import BasicTabs from "../components/BasicTabs"
 function Favorite(){
     return (
         <>
-        <div className="container m-0 sm:mx-40">
+        <div className="px-4 py-6 min-h-screen">
             <span className="text-xl text-primary px-8">รายการโปรด</span>
             <BasicTabs/>
         </div>

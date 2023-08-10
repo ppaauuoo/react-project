@@ -78,7 +78,7 @@ const TodoList = () => {
   }
 
   return (
-    <div className="px-4 py-6 h-screen">
+    <div className="px-4 py-6">
       <h3 className="text-3xl font-bold pb-4">Todo List</h3>
       <Link className="btn btn-primary btn-sm" to={`/add/todo`}>
         Add Todo
