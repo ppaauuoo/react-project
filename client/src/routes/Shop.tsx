@@ -1,13 +1,15 @@
 import { Skeleton } from "@mui/material";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Item = (props: any) => {
   return (
     <>
       <div className="card bg-neutral w-64 shadow-xl text-white">
         <div className="card-body">
-          <h2 className="card-title">{props.todo.title}</h2>
-          <p>{props.todo.content}</p>
+          <h2 className="card-title">{props.item.name}</h2>
+          <p>{props.item.desc}</p>
+          <p>{props.item.price}</p>
           <div className="card-actions justify-end">
             <button
               className="btn btn-primary"
@@ -68,6 +70,9 @@ export default function Shop() {
   return (
     <div className="px-4 py-6">
       <h3 className="text-3xl font-bold pb-4">Product List</h3>
+      <Link className="btn btn-primary btn-sm" to={`/add/item`}>
+        Add Item
+      </Link>
       <div className="flex p-4">
         {isLoading ? (
           <>

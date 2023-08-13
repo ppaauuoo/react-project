@@ -14,9 +14,11 @@ import Edit from "./components/User/EditUser";
 import Create from "./components/User/CreateUser";
 
 import RecordList from "./routes/recordList";
-import TodoForm from "./components/TodoForm";
+import TodoForm from "./components/ItemForm";
 
 import { Auth0Provider } from '@auth0/auth0-react';
+import Shop from "./routes/Shop";
+import ItemForm from "./components/ItemForm";
 
 
 
@@ -37,6 +39,8 @@ const router = createBrowserRouter([
       { path: "/edit/:id", element: <Edit /> },
       { path: "/add/record", element: <Create /> },
       { path: "/add/todo", element: <TodoForm /> },
+      { path: "/shop", element: <Shop /> },
+      { path: "/add/item", element: <ItemForm />}
     ],
   },
 ]);

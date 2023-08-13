@@ -21,4 +21,12 @@ router.get("/", async (req, res) => {
     res.send(collection).status(200);
   });
 
+
+  router.post("/", async (req, res) => {
+    const newItem = await new Todo({name: req.body.name, desc: req.body.desc, price: req.body.price})
+    await newItem.save();
+  
+    res.send(newItem).status(204);
+  });
+
 export default router;
