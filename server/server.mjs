@@ -3,6 +3,7 @@ import cors from "cors";
 import "./loadEnvironment.mjs";
 import records from "./routes/record.mjs";
 import todo from "./routes/todo.mjs";
+import item from "./routes/item.mjs";
 
 const PORT = process.env.PORT || 5050;
 const app = express();
@@ -13,6 +14,9 @@ app.use(express.json());
 app.use("/record", records);
 
 app.use("/todo", todo);
+
+app.use("/item", item);
+
 
 
 // start the Express server
