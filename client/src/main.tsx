@@ -10,8 +10,8 @@ import Favorite from "./routes/Favorite";
 import Chat from "./routes/Chat";
 
 import TodoList from "./routes/TodoList";
-import Edit from "./components/edit";
-import Create from "./components/create";
+import Edit from "./components/User/EditUser";
+import Create from "./components/User/CreateUser";
 
 import RecordList from "./routes/recordList";
 import TodoForm from "./components/TodoForm";
