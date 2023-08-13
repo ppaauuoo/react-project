@@ -26,46 +26,37 @@ const Item = (props: any) => {
   );
 };
 
-
-
 export default function Shop() {
+  const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-    const [items,setItems] = useState([])
-    const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    async function getTodos() {
+      setIsLoading(true);
+      //for performance (if being outside useEffect block it will be created evertime this component is rendered)
+      const response = await fetch(`https://reactapp-e2fk.onrender.com/item`);
 
-    useEffect(() => {
-        async function getTodos() {
-          setIsLoading(true);
-          //for performance (if being outside useEffect block it will be created evertime this component is rendered)
-          const response = await fetch(`https://reactapp-e2fk.onrender.com/item`);
-          
-          if (!response.ok) {
-            const message = `An error occurred: ${response.statusText}`;
-            window.alert(message);
-            return;
-          }
-    
-          const items = await response.json();
-          setItems(items);
-          setIsLoading(false);
-        }
-    
-        getTodos();
-    
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        window.alert(message);
         return;
-      }, [items.length]); //useEffect trigger (if length changes > trigger useEffect again)
-
-    function itemList() {
-        return items.map((item: any) => {
-          return (
-            <Item
-              todo={item}
-              key={item._id}
-            />
-          );
-        });
       }
 
+      const items = await response.json();
+      setItems(items);
+      setIsLoading(false);
+    }
+
+    getTodos();
+
+    return;
+  }, [items.length]); //useEffect trigger (if length changes > trigger useEffect again)
+
+  function itemList() {
+    return items.map((item: any) => {
+      return <Item item={item} key={item._id} />;
+    });
+  }
 
   return (
     <div className="px-4 py-6">
