@@ -38,14 +38,14 @@ export default function TodoForm() {
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const newTodo = { ...form }; //turn form to JSON (form is the state value)
+    const newItem = { ...form }; //turn form to JSON (form is the state value)
     setIsLoading(true);
     await fetch("https://reactapp-e2fk.onrender.com/item", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newTodo), //turn JSON to String
+      body: JSON.stringify(newItem), //turn JSON to String
     }).catch((error) => {
       window.alert(error);
       return;
@@ -75,7 +75,7 @@ export default function TodoForm() {
             <span className="label-text">Desc</span>
           </label>
           <textarea
-            className="input input-bordered mb-4"
+            className="input input-bordered"
             id="desc"
             value={form.desc}
             onChange={(e) => updateForm({ desc: e.target.value })}
@@ -93,7 +93,7 @@ export default function TodoForm() {
           <input
             type="submit"
             value={isLoading ? "Loading" : "Add"}
-            className="btn btn-primary"
+            className="btn btn-primary mt-4"
             onClick={handleOpen}
           />
           <Backdrop

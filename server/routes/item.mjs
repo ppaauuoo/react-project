@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
 
 
   router.post("/", async (req, res) => {
-    const newItem = await new Todo({name: req.body.name, desc: req.body.desc, price: req.body.price})
+    const newItem = await new Item({name: req.body.name, desc: req.body.desc, price: req.body.price})
     await newItem.save();
   
     res.send(newItem).status(204);
