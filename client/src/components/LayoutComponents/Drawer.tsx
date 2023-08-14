@@ -40,6 +40,14 @@ const Drawer: React.FC<DrawerProps> = ({ children }) => {
                 Record
               </Link>
             </li>
+            <li>
+              <Link
+                to="/shop"
+                className="btn btn-ghost normal-case text-lg mx-4"
+              >
+                Shop
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
